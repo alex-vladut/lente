@@ -2,14 +2,35 @@
   "name": "lente",
   "version": "0.0.0",
   "license": "MIT",
+  "author": "Alex Vladut",
+  "contributors": [],
   "scripts": {},
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "@babel/core": "^7.21.4",
+    "graphql-let": "^0.18.6",
+    "magic-string": "^0.30.0"
+  },
   "devDependencies": {
+    "@nrwl/devkit": "^15.9.2",
+    "@nrwl/eslint-plugin-nx": "15.9.2",
     "@nrwl/js": "15.9.2",
+    "@nrwl/linter": "15.9.2",
+    "@nrwl/vite": "15.9.2",
     "@nrwl/workspace": "15.9.2",
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.36.1",
+    "@vitest/coverage-c8": "~0.25.8",
+    "@vitest/ui": "^0.25.8",
+    "eslint": "~8.15.0",
+    "eslint-config-prettier": "8.1.0",
+    "jsdom": "~20.0.3",
     "nx": "15.9.2",
     "prettier": "^2.6.2",
-    "typescript": "~4.9.5"
+    "typescript": "~4.9.5",
+    "vite": "^4.0.1",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-tsconfig-paths": "^4.0.2",
+    "vitest": "^0.25.8"
   }
 }

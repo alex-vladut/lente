@@ -1,0 +1,44 @@
+{
+  "name": "vite-plugin-graphql",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/vite-plugin-graphql/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/vite-plugin-graphql",
+        "main": "packages/vite-plugin-graphql/src/index.ts",
+        "tsConfig": "packages/vite-plugin-graphql/tsconfig.lib.json",
+        "assets": [
+          "packages/vite-plugin-graphql/*.md",
+          "packages/vite-plugin-graphql/src/lib/refreshUtils.js"
+        ]
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs vite-plugin-graphql {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/vite-plugin-graphql/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/vite:test",
+      "outputs": ["coverage/packages/vite-plugin-graphql"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "../../coverage/packages/vite-plugin-graphql"
+      }
+    }
+  },
+  "tags": []
+}
