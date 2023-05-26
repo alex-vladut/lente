@@ -1,6 +1,6 @@
 {
   "name": "@lente/vite-plugin-graphql",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "commonjs",
   "repository": {
     "type": "git",
@@ -12,6 +12,7 @@
   },
   "homepage": "https://github.com/alex-vladut/lente/tree/main/packages/vite-plugin-graphql#readme",
   "peerDependencies": {
-    "vite": "^4.2.0"
+    "vite": "^4.2.0",
+    "tslib": "^2.3.0"
   }
 }
