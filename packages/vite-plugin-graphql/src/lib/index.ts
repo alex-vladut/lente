@@ -22,18 +22,17 @@ export interface Options {
   include?: string | RegExp | Array<string | RegExp>;
   exclude?: string | RegExp | Array<string | RegExp>;
   /**
-   * Set this to `"automatic"` to use [vite-react-jsx](https://github.com/alloc/vite-react-jsx).
-   * @deprecated All tools now support the automatic runtime, and it has been backported
-   * up to React 16. This allows to skip the React import and can produce smaller bundlers.
-   * @default "automatic"
-   */
-  jsxRuntime?: 'classic' | 'automatic';
-  /**
    * Control where the JSX factory is imported from.
    * https://esbuild.github.io/api/#jsx-import-source
    * @default 'react'
    */
   jsxImportSource?: string;
+  /**
+   * Note: Skipping React import with classic runtime is not supported from v4
+   * @default "automatic"
+   */
+  jsxRuntime?: 'classic' | 'automatic';
+
   /**
    * Babel configuration applied in both dev and prod.
    */
@@ -137,13 +136,11 @@ export default function viteGraphql(
       needHiresSourcemap =
         config.command === 'build' && !!config.build.sourcemap;
       isProduction = config.isProduction;
-      skipFastRefresh = isProduction || config.command === 'build';
+      skipFastRefresh =
+        isProduction ||
+        config.command === 'build' ||
+        config.server.hmr === false;
 
-      if (opts.jsxRuntime === 'classic') {
-        config.logger.warnOnce(
-          '[@vitejs/plugin-react] Support for classic runtime is deprecated.'
-        );
-      }
       if ('jsxPure' in opts) {
         config.logger.warnOnce(
           '[@vitejs/plugin-react] jsxPure was removed. You can configure esbuild.jsxSideEffects directly.'
@@ -174,10 +171,7 @@ export default function viteGraphql(
           {
             async() {
               return function callback(error: Error, result: string) {
-                if (error) {
-                  return reject(error);
-                }
-                resolve(result);
+                return error ? reject(error) : resolve(result);
               };
             },
             addDependency() {
