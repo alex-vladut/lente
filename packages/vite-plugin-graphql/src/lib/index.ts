@@ -207,8 +207,8 @@ export default function viteGraphql(
         !ssr &&
         (isJSX ||
           (opts.jsxRuntime === 'classic'
-            ? code.includes(devRuntime)
-            : importReactRE.test(code)));
+            ? importReactRE.test(code)
+            : code.includes(devRuntime)));
       if (useFastRefresh) {
         plugins.push([
           await loadPlugin('react-refresh/babel'),
@@ -246,13 +246,14 @@ export default function viteGraphql(
       }
 
       // Avoid parsing if no special transformation is needed
-      // if (
-      //   !plugins.length &&
-      //   !babelOptions.configFile &&
-      //   !babelOptions.babelrc
-      // ) {
-      //   return { code, map: inputMap ?? null }
-      // }
+      if (
+        !plugins.length &&
+        !babelOptions.presets.length &&
+        !babelOptions.configFile &&
+        !babelOptions.babelrc
+      ) {
+        return { code, map: inputMap ?? null }
+      }
 
       const parserPlugins = [...babelOptions.parserOpts.plugins];
 

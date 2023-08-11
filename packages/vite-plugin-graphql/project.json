@@ -14,7 +14,8 @@
         "assets": [
           "packages/vite-plugin-graphql/*.md",
           "packages/vite-plugin-graphql/src/lib/refreshUtils.js"
-        ]
+        ],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     },
     "publish": {
@@ -33,7 +34,7 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/packages/vite-plugin-graphql"],
+      "outputs": ["{workspaceRoot}/coverage/packages/vite-plugin-graphql"],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../coverage/packages/vite-plugin-graphql"
